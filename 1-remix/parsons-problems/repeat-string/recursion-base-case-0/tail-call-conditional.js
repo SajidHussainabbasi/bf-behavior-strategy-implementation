@@ -16,16 +16,41 @@
       return: text + recursedValue
 
 */
+/**
+ * Recursively repeats a given string a specified number of times.
+ *
+ * @function
+ * @param {string} [text=''] - The string to repeat.
+ * @param {number} [repetitions=1] - Number of times to repeat the string.
+ * @param {string} [repeated=''] - Used internally to accumulate the result.
+ * @returns {string} The final repeated string.
+ *
+ * @example
+ * repeatString('hi', 3); // returns 'hihihi'
+ */
 
 const repeatString = (text = '', repetitions = 1, repeated = '') => {
-    if (repetitions === 0) {
-        return repeated;
-    } else {
-        const nextRepeated = repeated + text;
-        const nextRepetitions = repetitions - 1;
-        return repeatString(text, nextRepetitions, nextRepeated);
-    }
+  if (repetitions === 0) {
+    return repeated;
+  } else {
+    const nextRepeated = repeated + text;
+    const nextRepetitions = repetitions - 1;
+    return repeatString(text, nextRepetitions, nextRepeated);
+  }
 };
 
-return ''; // distractor
-return repeatString(text, nextRepetitions); // distractor
+//return ''; // distractor
+//return repeatString(text, nextRepetitions); // distractor
+describe('repeatString', () => {
+  it('should repeat a string 3 times', () => {
+    expect(repeatString('hi', 3)).toBe('hihihi');
+  });
+
+  it('should return an empty string if repetitions is 0', () => {
+    expect(repeatString('test', 0)).toBe('');
+  });
+
+  it('should use default values if no arguments are passed', () => {
+    expect(repeatString()).toBe('');
+  });
+});

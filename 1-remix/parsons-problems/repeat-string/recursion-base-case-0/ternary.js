@@ -17,12 +17,32 @@
 
 */
 
+/**
+ * Recursively repeats a given string a specified number of times.
+ *
+ * @param {string} [text=''] - The string to be repeated.
+ * @param {number} [repetitions=1] - The number of times to repeat the string.
+ * @returns {string} The resulting repeated string.
+ *
+ * @example
+ * repeatString('ha', 3); // returns 'hahaha'
+ * repeatString('x', 0);  // returns ''
+ */
 // prettier-ignore
 const repeatString = (text = '', repetitions = 1) =>
   repetitions === 0
     ? ''
-    : text + repeatString(text, nextRepetitions - 1);
+    : text + repeatString(text, repetitions - 1);
 
+//const repeatString = (text = '', repetitions = 1) => { // distractor
+//repetitions = 0 // distractor
 
-const repeatString = (text = '', repetitions = 1) => { // distractor
-repetitions = 0 // distractor
+describe('repeatString', () => {
+  it('should repeat the string 3 times', () => {
+    expect(repeatString('ha', 3)).toBe('hahaha');
+  });
+
+  it('should return an empty string when repetitions is 0', () => {
+    expect(repeatString('test', 0)).toBe('');
+  });
+});
