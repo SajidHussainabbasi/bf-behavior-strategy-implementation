@@ -1,5 +1,3 @@
-// #todo
-
 'use strict';
 
 /**
@@ -14,36 +12,68 @@
 // -------- your solutions --------
 
 for (const solution of [secretSolution]) {
-    describe(solution.name + ': sets a text to lower or upper case', () => {
-        describe("the function's default parameters", () => {
-            it('second parameter defaults to true', () => {
-                expect(solution('asdf')).toEqual('asdf');
-            });
-            it('first parameter defaults to an empty string', () => {
-                expect(solution()).toEqual('');
-            });
-        });
-        // write the tests indicated by the comments
-        describe('when set to lower case', () => {
-            // when the text is an empty string
-            it(_, () => {
-                expect(solution(_, _)).toEqual(_);
-            });
-            // when the text is all upper case
-            // when the text is all lower case
-            // when the text is mixed upper and lower case
-            // when the text contains punctuation
-            // when the text contains numbers
-        });
-        describe('when set to upper case', () => {
-            // when the text is an empty string
-            // when the text is all upper case
-            // when the text is all lower case
-            // when the text is mixed upper and lower case
-            // when the text contains punctuation
-            // when the text contains numbers
-        });
+  describe(solution.name + ': sets a text to lower or upper case', () => {
+    describe("the function's default parameters", () => {
+      it('second parameter defaults to true', () => {
+        expect(solution('asdf')).toEqual('asdf');
+      });
+      it('first parameter defaults to an empty string', () => {
+        expect(solution()).toEqual('');
+      });
     });
+
+    describe('when set to lower case', () => {
+      it('an empty string -> ""', () => {
+        expect(solution('', true)).toEqual('');
+      });
+
+      it('all upper case -> "hello"', () => {
+        expect(solution('HELLO', true)).toEqual('hello');
+      });
+
+      it('all lower case remains "hello"', () => {
+        expect(solution('hello', true)).toEqual('hello');
+      });
+
+      it('mixed case "HeLLo" -> "hello"', () => {
+        expect(solution('HeLLo', true)).toEqual('hello');
+      });
+
+      it('"Hi!" with punctuation -> "hi!"', () => {
+        expect(solution('Hi!', true)).toEqual('hi!');
+      });
+
+      it('"123ABC" with numbers -> "123abc"', () => {
+        expect(solution('123ABC', true)).toEqual('123abc');
+      });
+    });
+
+    describe('when set to upper case', () => {
+      it('an empty string -> ""', () => {
+        expect(solution('', false)).toEqual('');
+      });
+
+      it('all upper case remains "HELLO"', () => {
+        expect(solution('HELLO', false)).toEqual('HELLO');
+      });
+
+      it('all lower case -> "HELLO"', () => {
+        expect(solution('hello', false)).toEqual('HELLO');
+      });
+
+      it('mixed case "HeLLo" -> "HELLO"', () => {
+        expect(solution('HeLLo', false)).toEqual('HELLO');
+      });
+
+      it('"Hi!" with punctuation -> "HI!"', () => {
+        expect(solution('Hi!', false)).toEqual('HI!');
+      });
+
+      it('"123abc" with numbers -> "123ABC"', () => {
+        expect(solution('123abc', false)).toEqual('123ABC');
+      });
+    });
+  });
 }
 
 // minified solution for testing your tests

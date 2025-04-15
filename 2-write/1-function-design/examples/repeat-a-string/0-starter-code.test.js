@@ -1,5 +1,3 @@
-// #todo
-
 'use strict';
 
 /* 0. Starter Code
@@ -25,16 +23,29 @@
 
 // =============== your solutions will go here ===============
 
+function repeatString(text = '', repetitions = 1) {
+  if (!Number.isInteger(repetitions) || repetitions <= 0) {
+    throw new Error(
+      'Repetitions must be a positive integer greater than zero.',
+    );
+  }
+
+  return text.repeat(repetitions);
+}
 // =============== a for-of loop to control which solution(s) are tested ===============
 
 for (const solution of [secretSolution]) {
-    // =============== test cases for this challenge ===============
+  // =============== test cases for this challenge ===============
 
-    describe(solution.name + ': _', () => {
-        describe('_', () => {
-            it('_', () => {});
-        });
+  describe(solution.name + ': _', () => {
+    describe('repeats strings', () => {
+      it('repeats "hi" 3 times', () => {
+        const actual = solution('hi', 3);
+        const expected = 'hihihi';
+        expect(actual).toEqual(expected);
+      });
     });
+  });
 }
 
 // =============== a minified solution you can use to test your test cases ===============

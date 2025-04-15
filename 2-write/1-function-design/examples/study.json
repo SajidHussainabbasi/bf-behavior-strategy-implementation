@@ -3,6 +3,6 @@
     "directory": "stepped"
   },
   "study": {
-    "save": false
+    "save": true
   }
 }
