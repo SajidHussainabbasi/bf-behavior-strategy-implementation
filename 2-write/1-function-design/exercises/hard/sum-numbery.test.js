@@ -1,5 +1,3 @@
-// #todo
-
 'use strict';
 
 /**
@@ -11,30 +9,58 @@
  */
 
 // -------- your solutions --------
+function sumNumberyStrings(arr) {
+  return arr.reduce((sum, str) => {
+    const num = Number(str);
+    return !isNaN(num) ? sum + num : sum;
+  }, 0);
+}
+// my tests
+describe('sumNumberyStrings', () => {
+  test('sums only numbery strings', () => {
+    const input = ['10', '20.5', 'hello', '3', 'NaN', ''];
+    const result = sumNumberyStrings(input);
+    // '' is treated as 0 by Number('')
+    expect(result).toBe(33.5); // 10 + 20.5 + 3 + 0
+  });
+
+  test('returns 0 for an empty array', () => {
+    const result = sumNumberyStrings([]);
+    expect(result).toBe(0);
+  });
+});
 
 const mapFilterReduce = (arr) => {
-    // these work, you need to pass them to the right array methods
-    const isNotNaN = (entry) => !Number.isNaN(entry);
-    const sumNumbers = (acc, next) => acc + next;
-    const castToNumber = (entry) => Number(entry);
+  // these work, you need to pass them to the right array methods
+  const isNotNaN = (entry) => !Number.isNaN(entry);
+  const sumNumbers = (acc, next) => acc + next;
+  const castToNumber = (entry) => Number(entry);
 
-    // fill in the array methods and pass in the correct logic
-    const sumOfNumberies = arr._(_)._(_)._(_, _);
+  // fill in the array methods and pass in the correct logic
+  const sumOfNumberies = arr
+    .map(castToNumber) // convert all strings to numbers
+    .filter(isNotNaN) // remove NaN values
+    .reduce(sumNumbers, 0); // sum the rest
 
-    return sumOfNumberies;
+  return sumOfNumberies;
 };
 
 // -------- your solutions --------
 
-for (const solution of [
-    secretSolution,
-    // mapFilterReduce,
-]) {
-    describe(solution.name + ': _', () => {
-        describe('_', () => {
-            it('_', () => {});
-        });
+for (const solution of [secretSolution, mapFilterReduce]) {
+  describe(solution.name + ': sums numbery strings in array', () => {
+    describe('basic behavior', () => {
+      it('sums numbery strings and ignores non-numbery strings', () => {
+        const input = ['10', '5', 'hello', '3.5', 'NaN', ''];
+        const result = solution(input);
+        expect(result).toBe(18.5); // 10 + 5 + 3.5 + 0 ("" counts as 0)
+      });
+
+      it('returns 0 for empty array', () => {
+        expect(solution([])).toBe(0);
+      });
     });
+  });
 }
 
 // minified solution for testing your tests

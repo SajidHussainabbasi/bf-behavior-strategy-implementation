@@ -3,41 +3,42 @@
  *
  * @param {number} n - An integer indicating how many Fibonacci numbers to calculate.
  * @returns {number[]} An array containing the first n Fibonacci numbers.
- *
- * @example
- * fibonacci(0); // -> []
- *
- * @example
- * fibonacci(1); // -> [0]
- *
- * @example
- * fibonacci(2); // -> [0, 1]
- *
- * @example
- * fibonacci(5); // -> [0, 1, 1, 2, 3]
  */
+export const fibonacci = (n) => {
+  if (typeof n === 'string') {
+    n = parseInt(n);
+  }
 
-export const fibonacci = (num) => {
-    if (typeof num === 'string') {
-        num = parseInt(num);
-    }
+  if (isNaN(n) || n < 0) {
+    return 'OOPS';
+  }
 
-    if (isNaN(num) || num < 0) {
-        return 'OOPS';
-    }
+  if (n === 0) return [];
+  if (n === 1) return [0];
 
-    if (num === 0) {
-        return 0;
-    }
+  const result = [0, 1];
+  for (let i = 2; i < n; i++) {
+    result.push(result[i - 1] + result[i - 2]);
+  }
 
-    let a = 0;
-    let b = 1;
-    // Each number is the sum of the two preceding numbers.
-    for (let i = 2; i <= num; i++) {
-        const temp = a + b;
-        a = b;
-        b = temp;
-    }
-
-    return b;
+  return result;
 };
+
+fibonacci(0); // -> []
+fibonacci(1); // -> [0]
+fibonacci(2); // -> [0, 1]
+fibonacci(5); // -> [0, 1, 1, 2, 3]
+
+describe('fibonacci: returns the first n Fibonacci numbers', () => {
+  it('returns correct sequence for n = 5', () => {
+    expect(fibonacci(5)).toEqual([0, 1, 1, 2, 3]);
+  });
+
+  it('returns an empty array for n = 0', () => {
+    expect(fibonacci(0)).toEqual([]);
+  });
+
+  it('returns "OOPS" for negative input', () => {
+    expect(fibonacci(-3)).toBe('OOPS');
+  });
+});

@@ -6,13 +6,29 @@
  */
 
 export const mapFilter = (arr) => {
-    // these work, you need to use them with the right array methods
-    const isNotNaN = (entry) => !Number.isNaN(entry);
-    const castToNumber = (entry) => Number(entry);
+  const isNotNaN = (entry) => !Number.isNaN(entry);
+  const castToNumber = (entry) => Number(entry);
 
-    // fill in the array methods and which logic to use
-    const numbers = arr.map(castToNumber);
-    const allValidNumbers = numbers.filter(isNotNaN);
+  const numbers = arr.map(castToNumber);
+  const allValidNumbers = numbers.filter(isNotNaN);
 
-    return allValidNumbers;
+  return allValidNumbers;
 };
+
+//.....Tests.....
+
+describe('mapFilter: keeps only valid numbers', () => {
+  it('filters valid numbers from mixed input', () => {
+    const input = ['1', 2, 'three', 4, '5.5', NaN, null, undefined, true];
+    const output = [1, 2, 4, 5.5, 0, 1];
+    expect(mapFilter(input)).toEqual(output);
+  });
+
+it('returns empty array if all values are invalid', () => {
+  expect(mapFilter(['a', 'NaN', {}, undefined])).toEqual([]);
+});
+
+  it('returns an empty array when input is empty', () => {
+    expect(mapFilter([])).toEqual([]);
+  });
+});
