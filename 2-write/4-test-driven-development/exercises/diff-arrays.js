@@ -21,4 +21,29 @@
  *
  * diffArrays([1, 2, 3], [4, 5]); // [1, 2, 3, 4, 5]
  */
-export const diffArrays = (a = [], b = []) => {};
+export const diffArrays = (a = [], b = []) => {
+  const result = [];
+
+  const isEqual = (x, y) =>
+    x === y ||
+    (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+
+  const inOtherArray = (item, arr) => arr.some((el) => isEqual(el, item));
+
+  for (const item of a) {
+    if (!inOtherArray(item, b)) {
+      result.push(item);
+    }
+  }
+
+  for (const item of b) {
+    if (!inOtherArray(item, a)) {
+      result.push(item);
+    }
+  }
+
+  return result;
+};
+
+console.log(diffArrays([2, 1], [3, 2])); // [1,3]
+console.log(diffArrays([1, 2, 3], [4, 5])); // [1, 2, 3, 4, 5]

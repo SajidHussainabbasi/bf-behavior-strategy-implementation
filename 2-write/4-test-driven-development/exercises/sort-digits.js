@@ -18,4 +18,12 @@
  *
  * sortDigits(2321, false); // 3221
  */
-export const sortDigits = (toSort = 0, up = true) => {};
+
+export const sortDigits = (n = 0, up = true) =>
+  +String(n)
+    .split('')
+    .sort(up ? undefined : (a, b) => b - a)
+    .join('');
+
+console.log(sortDigits(2321, true)); // 1223
+console.log(sortDigits(2321, false)); // 3221

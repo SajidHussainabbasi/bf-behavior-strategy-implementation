@@ -12,4 +12,24 @@
  *
  * reverseWords('hello world!'); // 'olleh dlrow!'
  */
-export const reverseWords = (text = '') => {};
+export const reverseWords = (text = '') => {
+  const words = text.split(' ');
+  let result = '';
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    let reversedWord = '';
+
+    for (let j = word.length - 1; j >= 0; j--) {
+      reversedWord += word[j];
+    }
+
+    result += reversedWord;
+    if (i < words.length - 1) result += ' ';
+  }
+
+  return result;
+};
+
+console.log('hello',reverseWords('hello')); // 'olleh'
+console.log('hello world!',reverseWords('hello world!')); // 'olleh dlrow!'
